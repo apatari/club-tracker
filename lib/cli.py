@@ -42,8 +42,8 @@ def clubs():
         clubs_list = clubs_menu()
         choice = input("> ")
         #TODO: add the option to create or delete clubs
-        if choice == "m":
-            main()
+        if choice == "x":
+            exit_program()
         elif choice == 'b': 
             break
         else:
@@ -70,6 +70,7 @@ def clubs_menu():
     print('')
     print('Enter a club\'s number for details and additional options')
     print("Enter b to go back to main menu")
+    print("Enter x to exit th program")
     print("")
     return list
 
@@ -103,7 +104,7 @@ def club_details_menu(club):
 
 if __name__ == "__main__":
     print("")
-    console.print("Welcome to the Club Tracker!", style = "dark_orange on white bold")
+    console.print(" Welcome to the Club Tracker! ", style = "dark_green on white bold")
     print("")
     main()
 
