@@ -11,7 +11,7 @@ from helpers import (
     helper_1
 )
 
-invalid = Style( color='magenta2', bold=True )
+invalid = Style( color='magenta2', bold=True)
 
 def main():
     
@@ -24,7 +24,7 @@ def main():
             clubs()
         else:
             print("")
-            console.print("Invalid entry", style= invalid)
+            console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
 
 
 def menu():
@@ -47,12 +47,11 @@ def clubs():
             main()
         else:
             try:
-                print(int(choice) - 1)
                 picked_club = clubs_list[int(choice) - 1]
                 club_details(picked_club)
             except:
                 print("")
-                console.print("Invalid entry", style= invalid)
+                console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
 
             
 
@@ -89,11 +88,10 @@ def club_details(club):
             main()
         elif choice == 'x':
             exit_program()
-
-    print('')
-    print(club['name'], "is the club you picked")
-    print('')
-
+        else:
+            print('')
+            console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
+        
 def club_details_menu(club):
     print('')
     console.print("------[blue]Club Details[/blue]-----------------", style="dark_sea_green bold")
