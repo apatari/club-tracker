@@ -41,10 +41,11 @@ def clubs():
     while True:
         clubs_list = clubs_menu()
         choice = input("> ")
-        if choice == "x":
-            exit_program()
-        elif choice == "m":
+        #TODO: add the option to create or delete clubs
+        if choice == "m":
             main()
+        elif choice == 'b': 
+            break
         else:
             try:
                 picked_club = clubs_list[int(choice) - 1]
@@ -68,8 +69,7 @@ def clubs_menu():
         console.print(i + 1, club['name'], style='light_steel_blue')
     print('')
     print('Enter a club\'s number for details and additional options')
-    print("Enter m to return to main menu")
-    print("Enter x to exit the program")
+    print("Enter b to go back to main menu")
     print("")
     return list
 
@@ -82,12 +82,8 @@ def club_details(club):
             print('TODO: add student')
         elif choice == 'r':
             print('TODO: remove student')
-        elif choice == 'c':
-            clubs()
-        elif choice == 'm':
-            main()
-        elif choice == 'x':
-            exit_program()
+        elif choice == 'b':
+            break
         else:
             print('')
             console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
@@ -102,9 +98,7 @@ def club_details_menu(club):
     print('Enter a to add a student')
     print('Enter r to remove a student')
     print('')
-    print("Enter c to return to clubs menu")
-    print("Enter m to return to main menu")
-    print("Enter x to exit the program")
+    print("Enter b to go back to clubs menu")
     
 
 if __name__ == "__main__":
