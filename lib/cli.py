@@ -39,23 +39,75 @@ def menu():
 
 def clubs():
     while True:
-        clubs_menu()
+        clubs_list = clubs_menu()
         choice = input("> ")
         if choice == "x":
             exit_program()
         elif choice == "m":
             main()
         else:
-            print("")
-            console.print("Invalid entry", style= invalid)
+            try:
+                print(int(choice) - 1)
+                picked_club = clubs_list[int(choice) - 1]
+                club_details(picked_club)
+            except:
+                print("")
+                console.print("Invalid entry", style= invalid)
+
+            
 
 def clubs_menu():
+
+    # TODO: this is a fake list for initial debugging, add real helper later
+    list = [{'id': 1, 'name':'Skiing'}, {'id':2, 'name': 'Chess'}]
+
     print('')
-    console.print("------[purple]Clubs Menu[/purple]-----------------", style="dark_sea_green bold")
+    console.print("------[blue]Clubs Menu[/blue]-----------------", style="dark_sea_green bold")
     print("")
+    print('All Clubs:')
+    for i, club in enumerate(list):
+        console.print(i + 1, club['name'], style='light_steel_blue')
+    print('')
+    print('Enter a club\'s number for details and additional options')
     print("Enter m to return to main menu")
     print("Enter x to exit the program")
     print("")
+    return list
+
+def club_details(club):
+
+    while True:
+        club_details_menu(club)
+        choice = input("> ")
+        if choice == 'a':
+            print('TODO: add student')
+        elif choice == 'r':
+            print('TODO: remove student')
+        elif choice == 'c':
+            clubs()
+        elif choice == 'm':
+            main()
+        elif choice == 'x':
+            exit_program()
+
+    print('')
+    print(club['name'], "is the club you picked")
+    print('')
+
+def club_details_menu(club):
+    print('')
+    console.print("------[blue]Club Details[/blue]-----------------", style="dark_sea_green bold")
+    print('')
+    print('Club Name: ', club['name'])
+    # TODO more details, such as students and limit
+    print('')
+    print('Enter a to add a student')
+    print('Enter r to remove a student')
+    print('')
+    print("Enter c to return to clubs menu")
+    print("Enter m to return to main menu")
+    print("Enter x to exit the program")
+    
 
 if __name__ == "__main__":
     print("")
