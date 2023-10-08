@@ -70,7 +70,7 @@ def clubs_menu():
     print('')
     print('Enter a club\'s number for details and additional options')
     print("Enter b to go back to main menu")
-    print("Enter x to exit th program")
+    print("Enter x to exit the program")
     print("")
     return list
 
