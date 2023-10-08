@@ -76,3 +76,38 @@ class Club:
         del Club.all[self.id]
 
         self.id = None
+
+    @classmethod
+    def instance_from_db(cls, row):
+        club = cls.all.get(row[0])
+        if club:
+            club.name = row[1]
+            club.capacity = row[2]
+        else:
+            club = cls(row[1], row[2])
+            club.id = row[0]
+            cls.all[club.id] = club
+        return club
+    
+    @classmethod
+    def get_all(cls):
+        sql = 'SELECT * FROM clubs'
+        rows = CURSOR.execute(sql).fetchall()
+
+        return [cls.instance_from_db(row) for row in rows]
+    
+    @classmethod
+    def find_by_id(cls, id):
+        sql = 'SELECT * FROM clubs WHERE id = ?'
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_name(cls, name):
+        sql = 'SELECT * FROM clubs WHERE name is ?'
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+    
+    #TODO: students(self)-- return all students associated with this club, once Student class is done. 
+
+    
