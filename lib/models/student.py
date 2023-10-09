@@ -11,7 +11,7 @@ class Student:
         self.club_id = club_id
 
     def __repr__(self):
-        return f'<Student {self.id}: {self.name}, Club ID: {self.club_id}'
+        return f'<Student {self.id}: {self.name}, Club ID: {self.club_id}>'
     
     @property
     def name(self):
@@ -30,7 +30,7 @@ class Student:
     
     @club_id.setter
     def club_id(self, club_id):
-        if isinstance(club_id, int) and Club.find_by_id(club_id):
+        if isinstance(club_id, int):
             self._club_id = club_id
         else:
             raise ValueError('No matching club id in the database')
@@ -63,9 +63,14 @@ class Student:
         Student.all[self.id] = self
     
     def update(self):
-        sql = 'UPDATE students SET name = ?, club_id = ? WHERE id = ?'
-        CURSOR.execute(sql, (self.name, self.club_id, self.id))
-        CONN.commit()
+        club = Club.find_by_id(self.club_id)
+        if club.student_count() < club.capacity:
+            sql = 'UPDATE students SET name = ?, club_id = ? WHERE id = ?'
+            CURSOR.execute(sql, (self.name, self.club_id, self.id))
+            CONN.commit()
+        else:
+            self = Student.find_by_id(self.id)
+            raise ValueError('Club is already at capacity')
     
     def delete(self):
         sql = 'DELETE FROM students WHERE id = ?'
@@ -78,9 +83,44 @@ class Student:
     
     @classmethod
     def create(cls, name, club_id):
-        student = cls(name, club_id)
-        student.save()
+        club = Club.find_by_id(club_id)
+        if club.student_count() < club.capacity:
+            student = cls(name, club_id)
+            student.save()
+            return student    
+        else:
+            raise ValueError('Club is already at capacity')
+
+        
+
+    @classmethod
+    def instance_from_db(cls, row):
+        student = cls.all.get(row[0])
+        if student:
+            student.name = row[1]
+            student.club_id = row[2]
+        else:
+            student = cls(row[1], row[2])
+            student.id = row[0]
+            cls.all[student.id] = student
         return student
 
+    @classmethod
+    def get_all(cls):
+        sql = 'SELECT * FROM students'
+
+        rows = CURSOR.execute(sql).fetchall()
+
+        return [cls.instance_from_db(row) for row in rows]
     
+    @classmethod
+    def find_by_id(cls, id):
+        sql = 'SELECT * FROM students WHERE id = ?'
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
     
+    @classmethod
+    def find_by_name(cls, name):
+        sql = 'SELECT * FROM students WHERE name is ?'
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None

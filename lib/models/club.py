@@ -26,14 +26,15 @@ class Club:
     def capacity(self):
         return self._capacity
     
-    #TODO: when setting capacity, also check that the capacity is higher than current student count.
+    
     @capacity.setter
     def capacity(self, capacity):
-        if isinstance(capacity, int) and capacity > 0:
+    
+        if isinstance(capacity, int) and capacity > 0 and len(self.students()) <= capacity:
             self._capacity = capacity
-            #I think another nested if statement goes here for current student count check
         else:
-            raise ValueError('Capacity must be an integer greater than zero')
+            raise ValueError('Capacity must be an integer greater than zero and cannot be lower than enrollment')
+    
     @classmethod
     def create_table(cls):
         sql = """
@@ -83,8 +84,7 @@ class Club:
     def instance_from_db(cls, row):
         club = cls.all.get(row[0])
         if club:
-            club.name = row[1]
-            club.capacity = row[2]
+            return club
         else:
             club = cls(row[1], row[2])
             club.id = row[0]
@@ -110,6 +110,20 @@ class Club:
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
     
-    #TODO: students(self)-- return all students associated with this club, once Student class is done. 
+  
+    def students(self):
+        from models.student import Student
+        sql = 'SELECT * FROM students WHERE club_id = ?'
+        rows = CURSOR.execute(sql, (self.id,)).fetchall()
+
+        return [Student.instance_from_db(row) for row in rows]
+    
+    def student_count(self):
+        from models.student import Student
+        sql = 'SELECT * FROM students WHERE club_id = ?'
+        rows = CURSOR.execute(sql, (self.id,)).fetchall()
+        return len(rows)
+
+        
 
     
