@@ -26,10 +26,12 @@ class Club:
     def capacity(self):
         return self._capacity
     
+    #TODO: when setting capacity, also check that the capacity is higher than current student count.
     @capacity.setter
     def capacity(self, capacity):
         if isinstance(capacity, int) and capacity > 0:
             self._capacity = capacity
+            #I think another nested if statement goes here for current student count check
         else:
             raise ValueError('Capacity must be an integer greater than zero')
     @classmethod
