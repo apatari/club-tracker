@@ -48,5 +48,39 @@ class Student:
         CURSOR.execute(sql)
         CONN.commit()
 
+    @classmethod
+    def drop_table(cls):
+        sql = 'DROP TABLE IF EXISTS students;'
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    def save(self):
+        sql = 'INSERT INTO students (name, club_id) VALUES (?, ?)'
+        CURSOR.execute(sql, (self.name, self.club_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        Student.all[self.id] = self
+    
+    def update(self):
+        sql = 'UPDATE students SET name = ?, club_id = ? WHERE id = ?'
+        CURSOR.execute(sql, (self.name, self.club_id, self.id))
+        CONN.commit()
+    
+    def delete(self):
+        sql = 'DELETE FROM students WHERE id = ?'
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        del Student.all[self.id]
+
+        self.id = None
+    
+    @classmethod
+    def create(cls, name, club_id):
+        student = cls(name, club_id)
+        student.save()
+        return student
+
     
     
