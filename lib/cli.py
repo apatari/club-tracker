@@ -4,6 +4,7 @@
 from rich import print as rprint
 from rich.style import Style
 from rich.console import Console
+import helpers
 console = Console()
 
 from helpers import (
@@ -41,11 +42,13 @@ def clubs():
     while True:
         clubs_list = clubs_menu()
         choice = input("> ")
-        #TODO: add the option to create or delete clubs
+        
         if choice == "x":
             exit_program()
         elif choice == 'b': 
             break
+        elif choice == 'a':
+            helpers.add_club()
         else:
             try:
                 picked_club = clubs_list[int(choice) - 1]
@@ -59,16 +62,17 @@ def clubs():
 def clubs_menu():
 
     # TODO: this is a fake list for initial debugging, add real helper later
-    list = [{'id': 1, 'name':'Skiing'}, {'id':2, 'name': 'Chess'}]
+    list = helpers.club_list()
 
     print('')
     console.print("------[blue]Clubs Menu[/blue]-----------------", style="dark_sea_green bold")
     print("")
     print('All Clubs:')
     for i, club in enumerate(list):
-        console.print(i + 1, club['name'], style='light_steel_blue')
+        console.print(i + 1, club.name, style='light_steel_blue')
     print('')
-    print('Enter a club\'s number for details and additional options')
+    print('Enter any club\'s number for details and additional options')
+    print("Enter a to add a new club")
     print("Enter b to go back to main menu")
     print("Enter x to exit the program")
     print("")
@@ -79,10 +83,16 @@ def club_details(club):
     while True:
         club_details_menu(club)
         choice = input("> ")
-        if choice == 'a':
+        if choice == 's':
+            helpers.view_students()
+        elif choice == 'n':
             print('TODO: add student')
         elif choice == 'r':
             print('TODO: remove student')
+        elif choice == 'u':
+            print('TODO: update club')
+        elif choice == 'd':
+            print('TODO: delete club')
         elif choice == 'b':
             break
         else:
@@ -93,11 +103,17 @@ def club_details_menu(club):
     print('')
     console.print("------[blue]Club Details[/blue]-----------------", style="dark_sea_green bold")
     print('')
-    print('Club Name: ', club['name'])
+    print('Club Name: ', club.name)
+    print('Current enrollment: ', club.student_count())
+    print('Maximum capacity:   ', club.capacity)
     # TODO more details, such as students and limit
     print('')
-    print('Enter a to add a student')
+    
+    print('Enter s to view all students in this club')
+    print('Enter n to add a new student')
     print('Enter r to remove a student')
+    print('Enter u to update this club\'s name and capacity')
+    print('Enter d to delete this club and its students')
     print('')
     print("Enter b to go back to clubs menu")
     
