@@ -1,8 +1,10 @@
 # lib/helpers.py
 from rich.console import Console
+from rich.style import Style
 from models.club import Club
 from models.student import Student
 console = Console()
+invalid = Style( color='magenta2', bold=True)
 
 def helper_1():
     print("Performing useful function#1.")
@@ -30,6 +32,69 @@ def add_club():
 def club_list():
     return Club.get_all()
 
-def view_students():
-    pass
+def view_students(club):
+    list = club.students()
+    print('')
+    if list:
+        print(f'Students in {club.name}:')
+        for i, student in enumerate(list):
+            console.print(i + 1, student.name, style='orange3')
+    else:
+        console.print(f'No students are enrolled in {club.name}', style='orange3')
+    print('')
+    input('Press Enter to return to Club Details')
 
+def add_student(club):
+    print('')
+    name = input("Enter the student's name: ")
+    try:
+        Student.create(name, club.id)
+        print('')
+        console.print('Student created successfully', style = 'green3')
+    except Exception as exc:
+        print('')
+        console.print("Error creating student: ", exc, style=invalid)
+
+def remove_student(club):
+    list = club.students()
+    print('')
+    if list:
+        print(f'Students in {club.name}:')
+        for i, student in enumerate(list):
+            console.print(i + 1, student.name, style='orange3')
+            
+        print('')
+        choice = input("Enter the number for the student to delete: ")
+
+        try:
+                picked_student = list[int(choice) - 1]
+                print('')
+                console.print(f"Delete {picked_student.name}? Enter y to confirm, anything else to cancel")
+                confirmation = input("> ")
+                if confirmation == 'y':
+                    picked_student.delete()
+                    print('')
+                    console.print(f'{picked_student.name} was deleted', style = 'green3')
+                else:
+                    print('')
+                    console.print('Action canceled', style='yellow')
+        except:
+            print("")
+            console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
+    else:
+        console.print(f'No students are enrolled in {club.name}', style='orange3')
+
+def update_club(club):
+    print('')
+    tmp = club.name
+    try:
+        name = input('Enter the name for the updated club: ')
+        club.name = name
+        capacity = int(input('Enter the capacity for the updated club: '))
+        club.capacity = capacity
+        club.update()
+        print('')
+        console.print('Update successful', style = 'green3')
+    except Exception as exc:
+        club.name = tmp
+        console.print("Error updating club: must enter a valid name and number", style=invalid)

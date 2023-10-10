@@ -84,13 +84,13 @@ def club_details(club):
         club_details_menu(club)
         choice = input("> ")
         if choice == 's':
-            helpers.view_students()
+            helpers.view_students(club)
         elif choice == 'n':
-            print('TODO: add student')
+            helpers.add_student(club)
         elif choice == 'r':
-            print('TODO: remove student')
+            helpers.remove_student(club)
         elif choice == 'u':
-            print('TODO: update club')
+            helpers.update_club(club)
         elif choice == 'd':
             print('TODO: delete club')
         elif choice == 'b':
