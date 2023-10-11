@@ -8,9 +8,9 @@ Club.create_table()
 Student.drop_table()
 Student.create_table()
 
-Club.create(name='skiing', capacity=3)
-Club.create(name='ultimate', capacity=4)
-Club.create(name='checkers', capacity=10)
+Club.create(name='Skiing', capacity=3)
+Club.create(name='Biking', capacity=4)
+Club.create(name='Checkers', capacity=8)
 
 Student.create(name="Joe", club_id = 1)
 Student.create(name="Bill", club_id = 1)

@@ -40,8 +40,9 @@ def menu():
     print('')
 
 def students():
+   
     while True:
-        student_list = students_menu()
+        students_menu()
         choice = input('> ')
 
         if choice == 'x':
@@ -49,7 +50,65 @@ def students():
         elif choice == 'b':
             break
         elif choice == 'a':
-            print('TODO: create new student and assign them to a club')
+            helpers.create_student()
+        elif choice == 'v':
+            all_students()
+        elif choice == 'f':
+            find_student()
+        else:
+            print("")
+            console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
+        
+
+def students_menu():
+    
+    print('')
+    console.print("------[blue]Students Menu[/blue]-----------------", style="dark_sea_green bold")
+    print("")
+    print('Enter v to view all students')
+    print('Enter f to find a student by name')
+    print("Enter a to add a new student and assign them to a club")
+    print("Enter b to go back to main menu")
+    print("Enter x to exit the program")
+    print("")
+
+def student_details(student):
+    while True:
+        student_details_menu(student)
+        choice = input("> ")
+
+        if choice == 'b':
+            break
+        elif choice == 'u':
+            helpers.update_student(student)
+        elif choice == 'd':
+            next = helpers.delete_student(student) 
+            if next == 1:
+                break
+        else:
+            print("")
+            console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
+
+def student_details_menu(student):
+    print('')
+    console.print(f'Student: {student.name}, Club: {helpers.club_name_from_id(student.club_id)}', style='orange3')
+    print('')
+    print("Press u to update this student's name and/or club")
+    print("Press d to delete this student")
+    print("Press b to go back to previous menu")
+    
+
+def all_students():
+    while True:
+        student_list = all_students_menu()
+        choice = input("> ")
+
+        if choice == 'x':
+            exit_program()
+        elif choice == 'b':
+            break
+        elif choice == 'a':
+            helpers.create_student()
         else:
             try:
                 picked_student = student_list[int(choice) - 1]
@@ -58,31 +117,31 @@ def students():
                 print("")
                 console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
         
-
-def students_menu():
-    list = helpers.student_list()
-
+def find_student():
     print('')
-    console.print("------[blue]Students Menu[/blue]-----------------", style="dark_sea_green bold")
+    name = input('Enter name of student (case sensitive): ')
+    student = helpers.find_student(name)
+    if student:
+        student_details(student)
+    else:
+        print('')
+        console.print(f"No student with name {name} in database", style= invalid, highlight=False)
+
+def all_students_menu():
+    
+    list = helpers.student_list()
+    print('')
+    console.print("------[blue]All Students[/blue]-----------------", style="dark_sea_green bold")
     print("")
-    print('All Students:')
     for i, student in enumerate(list):
         console.print(i + 1, student.name, style='orange3')
     print('')
     print('Enter any student\'s number for details and additional options')
-    print("Enter a to create a new student and assign them to a club")
-    print("Enter b to go back to main menu")
+    print("Enter a to add a new student and assign them to a club")
+    print("Enter b to go back to students menu")
     print("Enter x to exit the program")
     print("")
     return list
-
-def student_details(student):
-    print('')
-    print(f'Student: {student.name}, Club: TODO')
-    print('')
-    input("Press Enter to continue")
-
-
 
 def clubs():
     while True:
@@ -153,7 +212,7 @@ def club_details_menu(club):
     print('Club Name: ', club.name)
     print('Current enrollment: ', club.student_count())
     print('Maximum capacity:   ', club.capacity)
-    # TODO more details, such as students and limit
+    
     print('')
     
     print('Enter s to view all students in this club')

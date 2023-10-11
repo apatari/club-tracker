@@ -104,7 +104,8 @@ def update_club(club):
 
 def delete_club(club):
     print('')
-    confirm = input(f'Delete {club.name} and all its students? Enter y to confirm, anything else to cancel')
+    console.print(f'Delete {club.name} and all its students? Enter y to confirm, anything else to cancel')
+    confirm = input("> ")
     if confirm != 'y':
         print('')
         console.print('Action canceled', style='yellow')
@@ -116,3 +117,81 @@ def delete_club(club):
         print('')
         console.print('Club and students deleted', style='green3')
         return 1
+    
+def create_student():
+    print('')
+    name = input("Enter student name: ")
+    print('')
+
+    club_list = [club for club in Club.get_all() if club.student_count() < club.capacity]
+
+    print('Clubs with room for another student:')
+    for i, club in enumerate(club_list):
+        console.print(i + 1, club.name, style='light_steel_blue')
+    
+    choice = input('Enter the number of the club for the new student: ')
+
+    try:
+        picked_club = club_list[int(choice) - 1]
+        Student.create(name, picked_club.id)
+        print('')
+        console.print("Student created", style='green')
+    except:
+        print("")
+        console.print(f"Error creating student: must enter a valid name and number", style= invalid, highlight=False)
+
+
+
+def find_student(name):
+    return Student.find_by_name(name)
+
+def club_name_from_id(id):
+    return Club.find_by_id(id).name
+
+def update_student(student):
+    print('')
+    tmp = student.name
+    try:
+        name_ = input("Enter student name: ")
+        student.name = name_
+        print('')
+
+        try:
+            club_list = [club for club in Club.get_all() if club.student_count() < club.capacity]
+
+            print('Clubs with room for another student:')
+            for i, club in enumerate(club_list):
+                console.print(i + 1, club.name, style='light_steel_blue')
+            
+            choice = input('Enter the number of the club for the new student: ')
+
+            picked_club = club_list[int(choice) - 1]
+            student.club_id = picked_club.id
+            student.update()
+            print('')
+            console.print("Student updated", style='green')
+        except:
+            print('')
+            console.print(f"Error updating student: must enter valid club number", style= invalid)
+            student.name = tmp
+
+
+    except Exception as exc:
+        print("")
+        console.print(f"Error updating student: ", exc, style= invalid, highlight=False)
+
+    
+def delete_student(student):
+    print('')
+    console.print(f'Delete {student.name}? Enter y to confirm, anything else to cancel')
+    confirm = input("> ")
+    if confirm != 'y':
+        print('')
+        console.print('Action canceled', style='yellow')
+        return 0
+    else:
+        student.delete()
+        print('')
+        console.print('Student deleted', style='green3')
+        return 1
+    
