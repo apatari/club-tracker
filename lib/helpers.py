@@ -32,6 +32,9 @@ def add_club():
 def club_list():
     return Club.get_all()
 
+def student_list():
+    return Student.get_all()
+
 def view_students(club):
     list = club.students()
     print('')
@@ -98,3 +101,18 @@ def update_club(club):
     except Exception as exc:
         club.name = tmp
         console.print("Error updating club: must enter a valid name and number", style=invalid)
+
+def delete_club(club):
+    print('')
+    confirm = input(f'Delete {club.name} and all its students? Enter y to confirm, anything else to cancel')
+    if confirm != 'y':
+        print('')
+        console.print('Action canceled', style='yellow')
+        return 0
+    else:
+        for student in club.students():
+            student.delete()
+        club.delete()
+        print('')
+        console.print('Club and students deleted', style='green3')
+        return 1

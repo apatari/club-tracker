@@ -23,6 +23,8 @@ def main():
             exit_program()
         elif choice == "c":
             clubs()
+        elif choice == 's':
+            students()
         else:
             print("")
             console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
@@ -36,6 +38,50 @@ def menu():
     print("Enter s for students menu")
     print("Enter x to exit the program")
     print('')
+
+def students():
+    while True:
+        student_list = students_menu()
+        choice = input('> ')
+
+        if choice == 'x':
+            exit_program()
+        elif choice == 'b':
+            break
+        elif choice == 'a':
+            print('TODO: create new student and assign them to a club')
+        else:
+            try:
+                picked_student = student_list[int(choice) - 1]
+                student_details(picked_student)
+            except:
+                print("")
+                console.print(f"Invalid entry: {choice}", style= invalid, highlight=False)
+        
+
+def students_menu():
+    list = helpers.student_list()
+
+    print('')
+    console.print("------[blue]Students Menu[/blue]-----------------", style="dark_sea_green bold")
+    print("")
+    print('All Students:')
+    for i, student in enumerate(list):
+        console.print(i + 1, student.name, style='orange3')
+    print('')
+    print('Enter any student\'s number for details and additional options')
+    print("Enter a to create a new student and assign them to a club")
+    print("Enter b to go back to main menu")
+    print("Enter x to exit the program")
+    print("")
+    return list
+
+def student_details(student):
+    print('')
+    print(f'Student: {student.name}, Club: TODO')
+    print('')
+    input("Press Enter to continue")
+
 
 
 def clubs():
@@ -61,7 +107,6 @@ def clubs():
 
 def clubs_menu():
 
-    # TODO: this is a fake list for initial debugging, add real helper later
     list = helpers.club_list()
 
     print('')
@@ -92,7 +137,9 @@ def club_details(club):
         elif choice == 'u':
             helpers.update_club(club)
         elif choice == 'd':
-            print('TODO: delete club')
+            next = helpers.delete_club(club) 
+            if next == 1:
+                break
         elif choice == 'b':
             break
         else:
