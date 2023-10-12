@@ -24,40 +24,25 @@ python cli.py
 
 ![](https://github.com/apatari/club-tracker/blob/main/CLIMain.png) 
 
-Add discs using the 'Add New Discs' tab.  The submit button and a preview of your discs will appear once all fields are filled.  From there, you can add discs to the bag from the 'Select Discs' tab and see the current state of the bag with the 'View Bag' tab.
+A series of menus will prompt you with the operations you can run.  Type the appropriate letter or number to navigate menus or select the operations to carry out.  Menu and value entries are case sensitive.  Actions the program can can carry out include creating, updating, and deleting students and clubs, viewing all clubs or students, and finding students by club or name.   
 
-A browser window should open up with the app running.  
+## Files and functions
+
+In the /lib folder, you'll find the cli.py file which contains the menus and display functions.  As noted above, executing this file within the /lib directory will run the CLI tool.  
+
+Also in the /lib directory is helpers.py.  This file contains the functions that connct the user interface to the database and the Python classes that represent each table.  The functions themselves have names that describe their purpose, such as add_club or update_student.  
+
+The file debug.py is a tool that allows testing during the development process.  Executing this file will enter a debugging prompt.  It is not necessary for use of the CLI, but may be handy for anyone modifying the program's behavior.  Currently it creates a few variables which point to clubs and students in the database for easier access while using the debugger.  Make sure there are at least a few clubs and students in the database before running debug.py otherwise it will throw an error.  Running seed.py will fix this quickly. 
+
+Speaking of seed.py, this program erases the existing database and repopulates it with sample code for testing.  DO NOT run seed.py unless you intend to discard all data currently in the database.  The current file will leave a database with three clubs and four students.
+
+In the models folder, __init__.py creates the cursor and connection to the database.  You'll see it imported by other files that need to perform SQL based actions on the database.  The two models in that folder, club.py and student.py each contain the functions necessary to initialize, validate, and maintain instances of each class, as well as the tables themselves.  Other methods provide functionality such as counting or returning the number of students in a club.
 
 ## Acknowledgment
 
-Thanks to the folks who created and maintain the Create React App and Bootstrap React
+Thanks to the folks who created and maintain [pipenv](https://pipenv.pypa.io/en/latest/) and the [Rich library for Python](https://rich.readthedocs.io/en/stable/introduction.html)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and uses [Bootstrap React](https://react-bootstrap.netlify.app/) for styling.
 
-## Updating README.md
 
-`README.md` is a Markdown file that should describe your project. You will
-replace the contents of this `README.md` file with a description of **your**
-actual project.
-
-Markdown is not a language that we cover in Flatiron's Software Engineering
-curriculum, but it's not a particularly difficult language to learn (if you've
-ever left a comment on Reddit, you might already know the basics). Refer to the
-cheat sheet in this assignments's resources for a basic guide to Markdown.
-
-### What Goes into a README?
-
-This README serves as a template. Replace the contents of this file to describe
-the important files in your project and describe what they do. Each Python file
-that you edit should get at least a paragraph, and each function should be
-described with a sentence or two.
-
-Describe your actual CLI script first, and with a good level of detail. The rest
-should be ordered by importance to the user. (Probably functions next, then
-models.)
-
-Screenshots and links to resources that you used throughout are also useful to
-users and collaborators, but a little more syntactically complicated. Only add
-these in if you're feeling comfortable with Markdown.
 
 ---
