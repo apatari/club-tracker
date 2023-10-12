@@ -30,7 +30,7 @@ A series of menus will prompt you with the operations you can run.  Type the app
 
 In the /lib folder, you'll find the cli.py file which contains the menus and display functions.  As noted above, executing this file within the /lib directory will run the CLI tool.  
 
-Also in the /lib directory is helpers.py.  This file contains the functions that connct the user interface to the database and the Python classes that represent each table.  The functions themselves have names that describe their purpose, such as add_club or update_student.  
+Also in the /lib directory is helpers.py.  This file contains the functions that connect the user interface to the database and the Python classes that represent each table.  The functions themselves have names that describe their purpose, such as add_club or update_student.  
 
 The file debug.py is a tool that allows testing during the development process.  Executing this file will enter a debugging prompt.  It is not necessary for use of the CLI, but may be handy for anyone modifying the program's behavior.  Currently it creates a few variables which point to clubs and students in the database for easier access while using the debugger.  Make sure there are at least a few clubs and students in the database before running debug.py otherwise it will throw an error.  Running seed.py will fix this quickly. 
 
