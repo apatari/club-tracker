@@ -22,7 +22,7 @@ python cli.py
 
 ## Usage
 
-![](https://github.com/apatari/phase-2-Project-disc-bag/blob/main/BagGif.gif)
+![](https://github.com/apatari/club-tracker/blob/main/CLIMain.png) 
 
 Add discs using the 'Add New Discs' tab.  The submit button and a preview of your discs will appear once all fields are filled.  From there, you can add discs to the bag from the 'Select Discs' tab and see the current state of the bag with the 'View Bag' tab.
 
