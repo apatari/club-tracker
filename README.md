@@ -1,7 +1,7 @@
 
 # Club Tracker - A database management CLI
 
-This is a command line interface (CLI) designed to manage a many-to-one relationship between students who are each enrolled in one of the school clubs.  With some modification of prompts and table names, the functions and menu system can work to manage any database with a similar many-to-one relationship between two classes.
+This is a command line interface (CLI) designed to manage a many-to-one relationship between students who are each enrolled in a single club.  With some modification of prompts and table names, the functions and menu system can work to manage any database with a similar many-to-one relationship between two classes.
 
 ## Setup
 
