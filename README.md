@@ -22,7 +22,7 @@ python cli.py
 
 ## Usage
 
-![](https://github.com/apatari/club-tracker/blob/main/CLIMain.png) 
+![](https://github.com/apatari/club-tracker/blob/main/CLIMainMenu.png) 
 
 A series of menus will prompt you with the operations you can run.  Type the appropriate letter or number to navigate menus or select the operations to carry out.  Menu and value entries are case sensitive.  Actions the program can can carry out include creating, updating, and deleting students and clubs, viewing all clubs or students, and finding students by club or name.   
 
