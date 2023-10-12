@@ -6,9 +6,6 @@ from models.student import Student
 console = Console()
 invalid = Style( color='magenta2', bold=True)
 
-def helper_1():
-    print("Performing useful function#1.")
-
 
 def exit_program():
     console.print(" Goodbye! ", style="dark_red on grey84 bold")
