@@ -1,133 +1,38 @@
-# Phase 3 CLI+ORM Project Template
 
-## Learning Goals
+# Club Tracker - A database management CLI
 
-- Discuss the basic directory structure of a CLI.
-- Outline the first steps in building a CLI.
+This is a command line interface (CLI) designed to manage a many-to-one relationship between students who are each enrolled in one of the school clubs.  With some modification of prompts and table names, the functions and menu system can work to manage any database with a similar many-to-one relationship between two classes.
 
----
+## Setup
 
-## Introduction
+In order to use this app on your own machine, first make sure you have Python and pipenv installed on yor computer.  From there fork fork and clone this repository and run the following commands in the club-tracker directory to enter the virtual environment:
 
-You now have a basic idea of what constitutes a CLI. Fork and clone this lesson
-for a project template for your CLI.
-
-Take a look at the directory structure:
-
-```console
-.
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-└── lib
-    ├── models
-    │   ├── __init__.py
-    │   └── model_1.py
-    ├── cli.py
-    ├── debug.py
-    └── helpers.py
-```
-
-Note: The directory also includes two files named `CONTRIBUTING.md` and
-`LICENSE.md` that are specific to Flatiron's curriculum. You can disregard or
-delete the files if you want.
-
----
-
-## Generating Your Environment
-
-You might have noticed in the file structure- there's already a Pipfile!
-
-Install any additional dependencies you know you'll need for your project by
-adding them to the `Pipfile`. Then run the commands:
-
-```console
+```bash
 pipenv install
+
 pipenv shell
 ```
+Change into the /lib directory and run the CLI:
 
----
+```bash
+cd lib
 
-## Generating Your CLI
-
-A CLI is, simply put, an interactive script and prompts the user and performs
-operations based on user input.
-
-The project template has a sample CLI in `lib/cli.py` that looks like this:
-
-```py
-# lib/cli.py
-
-from helpers import (
-    exit_program,
-    helper_1
-)
-
-
-def main():
-    while True:
-        menu()
-        choice = input("> ")
-        if choice == "0":
-            exit_program()
-        elif choice == "1":
-            helper_1()
-        else:
-            print("Invalid choice")
-
-
-def menu():
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Some useful function")
-
-
-if __name__ == "__main__":
-    main()
+python cli.py
 ```
 
-The helper functions are located in `lib/helpers.py`:
+## Usage
 
-```py
-# lib/helpers.py
+![](https://github.com/apatari/phase-2-Project-disc-bag/blob/main/BagGif.gif)
 
-def helper_1():
-    print("Performing useful function#1.")
+Add discs using the 'Add New Discs' tab.  The submit button and a preview of your discs will appear once all fields are filled.  From there, you can add discs to the bag from the 'Select Discs' tab and see the current state of the bag with the 'View Bag' tab.
 
+A browser window should open up with the app running.  
 
-def exit_program():
-    print("Goodbye!")
-    exit()
-```
+## Acknowledgment
 
-You can run the template CLI with `python lib/cli.py`, or include the shebang
-and make it executable with `chmod +x`. The template CLI will ask for input, do
-some work, and accomplish some sort of task.
+Thanks to the folks who created and maintain the Create React App and Bootstrap React
 
-Past that, CLIs can be whatever you'd like, as long as you follow the project
-requirements.
-
-Of course, you will update `lib/cli.py` with prompts that are appropriate for
-your application, and you will update `lib/helpers.py` to replace `helper_1()`
-with a useful function based on the specific problem domain you decide to
-implement, along with adding other helper functions to the module.
-
-In the `lib/models` folder, you should rename `model_1.py` with the name of a
-data model class from your specific problem domain, and add other classes to the
-folder as needed. The file `lib/models/__init__.py` has been initialized to
-create the necessary database constants. You need to add import statements to
-the various data model classes in order to use the database constants.
-
-You are also welcome to implement a different module and directory structure.
-However, your project should be well organized, modular, and follow the design
-principal of separation of concerns, which means you should separate code
-related to:
-
-- User interface
-- Data persistence
-- Problem domain rules and logic
-
----
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and uses [Bootstrap React](https://react-bootstrap.netlify.app/) for styling.
 
 ## Updating README.md
 
@@ -156,17 +61,3 @@ users and collaborators, but a little more syntactically complicated. Only add
 these in if you're feeling comfortable with Markdown.
 
 ---
-
-## Conclusion
-
-A lot of work goes into a good CLI, but it all relies on concepts that you've
-practiced quite a bit by now. Hopefully this template and guide will get you off
-to a good start with your Phase 3 Project.
-
-Happy coding!
-
----
-
-## Resources
-
-- [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
