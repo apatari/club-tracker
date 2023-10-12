@@ -7,10 +7,6 @@ from rich.console import Console
 import helpers
 console = Console()
 
-from helpers import (
-    exit_program,
-    helper_1
-)
 
 invalid = Style( color='magenta2', bold=True)
 
@@ -20,7 +16,7 @@ def main():
         menu()
         choice = input("> ")
         if choice == "x":
-            exit_program()
+            helpers.exit_program()
         elif choice == "c":
             clubs()
         elif choice == 's':
@@ -46,7 +42,7 @@ def students():
         choice = input('> ')
 
         if choice == 'x':
-            exit_program()
+            helpers.exit_program()
         elif choice == 'b':
             break
         elif choice == 'a':
@@ -104,7 +100,7 @@ def all_students():
         choice = input("> ")
 
         if choice == 'x':
-            exit_program()
+            helpers.exit_program()
         elif choice == 'b':
             break
         elif choice == 'a':
@@ -149,7 +145,7 @@ def clubs():
         choice = input("> ")
         
         if choice == "x":
-            exit_program()
+            helpers.exit_program()
         elif choice == 'b': 
             break
         elif choice == 'a':
