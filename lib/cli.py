@@ -1,7 +1,5 @@
 # lib/cli.py
 
-
-from rich import print as rprint
 from rich.style import Style
 from rich.console import Console
 import helpers

@@ -1,4 +1,4 @@
-from models.__init__ import CONN, CURSOR
+
 from models.club import Club
 from models.student import Student
 
